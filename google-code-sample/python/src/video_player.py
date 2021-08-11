@@ -1,6 +1,7 @@
 """A video player class."""
 
 from .video_library import VideoLibrary
+from .video_playlist import Playlist
 import random
 
 class VideoPlayer:
@@ -10,6 +11,7 @@ class VideoPlayer:
         self._video_library = VideoLibrary()
         self._current_video_id = ""
         self._paused = False
+        self._playlists = {}
 
     def number_of_videos(self):
         num_videos = len(self._video_library.get_all_videos())
@@ -102,7 +104,17 @@ class VideoPlayer:
         Args:
             playlist_name: The playlist name.
         """
-        print("create_playlist needs implementation")
+
+        #lower_case_names = [playlist.title.lower() for playlist in self._playlists]
+        lower_case_names = set(self._playlists.keys())
+        if " " not in set(playlist_name):
+            if playlist_name.lower() in lower_case_names:
+                print("Cannot create playlist: A playlist with the same name already exists")
+            else:
+                # the _playlist dictionary uses the lower case version of the playlist name...
+                # ... as the key, however the Playlist object stores the original name
+                self._playlists[playlist_name.lower()] = Playlist(playlist_name)
+                print(f"Successfully created new playlist: {playlist_name}")
 
     def add_to_playlist(self, playlist_name, video_id):
         """Adds a video to a playlist with a given name.
@@ -111,7 +123,19 @@ class VideoPlayer:
             playlist_name: The playlist name.
             video_id: The video_id to be added.
         """
-        print("add_to_playlist needs implementation")
+        if playlist_name.lower() in set(self._playlists.keys()):
+            video = self._video_library.get_video(video_id)
+            if video:
+                playlist = self._playlists[playlist_name.lower()]
+                if playlist.contains_video(video_id):
+                    print(f"Cannot add video to {playlist_name}: Video already added")
+                else:
+                    playlist.add_video(video_id)
+                    print(f"Added video to {playlist_name}: {video.title}")
+            else:
+                print(f"Cannot add video to {playlist_name}: Video does not exist")
+        else:
+            print(f"Cannot add video to {playlist_name}: Playlist does not exist")
 
     def show_all_playlists(self):
         """Display all playlists."""
