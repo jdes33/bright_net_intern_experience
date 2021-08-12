@@ -41,3 +41,6 @@ To run the tess assuming you have pytest installed, in the same directory type:
 ```
 python -m pytest
 ```
+
+
+## Disclaimer: Work in this repo is my own and should not be submitted by any other person for the Bright Network Technology Internship Experience programme 2021.
