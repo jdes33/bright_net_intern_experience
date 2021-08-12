@@ -8,19 +8,28 @@ class Playlist:
         self._videos = []  # ids of videos in playlist
 
     def add_video(self, video_id):
+        """Adds a video to the playlist."""
         if video_id not in self._videos:
             self._videos.append(video_id)
 
     def contains_video(self, video_id):
+        """Returns boolean indicating if video is in playlist."""
         return video_id in self._videos
 
     def empty(self):
+        """Returns a boolean indicating if playlist is empty."""
         return len(self._videos) == 0
 
     def remove(self, video_id):
+        """Removes a video from the playlist.
+
+        Args:
+            video_id: The video_id to be removed.
+        """
         self._videos.remove(video_id)
 
     def clear(self):
+        """Clears the playlist."""
         self._videos.clear()
 
     @property

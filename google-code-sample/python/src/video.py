@@ -20,7 +20,7 @@ class Video:
         self._flag_reason = ""
 
     def __str__(self):
-        """Returns a string that neatly presents video details"""
+        """Returns a string that neatly presents video details."""
         formatted_tags = " ".join(self._tags)
         description = f"{self._title} ({self._video_id}) [{formatted_tags}]"
         if self._flag_reason:
@@ -49,4 +49,9 @@ class Video:
     
     @flag_reason.setter
     def flag_reason(self, value):
+        """Updates the _flag_reason atribute.
+
+        Args:
+            value: The reason the video is being flagged (empty string indicates it's unflagged).
+        """
         self._flag_reason = value

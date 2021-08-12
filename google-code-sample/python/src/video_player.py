@@ -18,7 +18,7 @@ class VideoPlayer:
         print(f"{num_videos} videos in the library")
 
     def show_all_videos(self):
-        """Returns all videos."""
+        """Shows all videos."""
         print("Here's a list of all available videos:")
         videos = sorted(self._video_library.get_all_videos(), key=lambda v: v.title)
         for video in videos:
@@ -299,13 +299,18 @@ class VideoPlayer:
         else:
             print("Cannot flag video: Video does not exist")
             
-
-
-        
     def allow_video(self, video_id):
         """Removes a flag from a video.
 
         Args:
             video_id: The video_id to be allowed again.
         """
-        print("allow_video needs implementation")
+        video = self._video_library.get_video(video_id)
+        if video:
+            if video.flag_reason:
+                video.flag_reason = ""
+                print(f"Successfully removed flag from video: {video.title}")
+            else:
+                print("Cannot remove flag from video: Video is not flagged")
+        else:
+            print("Cannot remove flag from video: Video does not exist")
