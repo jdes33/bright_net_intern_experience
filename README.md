@@ -1,7 +1,7 @@
 # Bright Network Technology Internship Experience
 This work is for the Google software development challenge.
 The idea of the project is to create a simplified command line version of youtube. I was provided with a bunch of tests and hence worked in a TDD fashion.
-I completed the work using Python (version 3) and was able to pass all 71 tests.
+I completed the work using Python (version 3) and was able to pass all 71 tests. To see the commands available and a detailed description of the features look at the coding-challenge-instructions.pdf in the google-code-sample directory.
 
 # Summary of features
 ## Part 1
