@@ -244,8 +244,27 @@ class VideoPlayer:
         Args:
             video_tag: The video tag to be used in search.
         """
-        print("search_videos_tag needs implementation")
+        videos = self._video_library.get_all_videos()
+        filtered_videos = list(filter(lambda video: video_tag.lower() in video.tags, videos))
+        filtered_videos.sort(key=lambda v: v.title)
+        if filtered_videos:
+            print(f"Here are the results for {video_tag}:")
+            for i in range(len(filtered_videos)):
+                print(f"\t{i+1}) {filtered_videos[i]}")
+            print("Would you like to play any of the above? If yes, specify the number of the video.")
+            print("If your answer is not a valid number, we will assume it's a no.")
 
+            try:
+                answer = int(input())
+                if answer > 0 and answer <= len(filtered_videos):
+                    self.play_video(filtered_videos[answer - 1].video_id)
+                else:
+                    raise ValueError
+            except ValueError:
+                pass  # didn't select valid video index
+
+        else:
+            print(f"No search results for {video_tag}")
     def flag_video(self, video_id, flag_reason=""):
         """Mark a video as flagged.
 
