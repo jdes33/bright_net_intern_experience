@@ -13,6 +13,15 @@ class Playlist:
 
     def contains_video(self, video_id):
         return video_id in self._videos
+
+    def empty(self):
+        return len(self._videos) == 0
+
+    @property
+    def videos(self):
+        """Returns the ids of videos in a playlist."""
+        return self._videos
+    
     
     @property
     def title(self):

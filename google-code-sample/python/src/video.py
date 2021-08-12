@@ -15,6 +15,11 @@ class Video:
         # in case the caller changes the 'video_tags' they passed to us
         self._tags = tuple(video_tags)
 
+    def __str__(self):
+        """Returns a string that neatly presents video details"""
+        formatted_tags = " ".join(self._tags)
+        return f"{self._title} ({self._video_id}) [{formatted_tags}]"
+
     @property
     def title(self) -> str:
         """Returns the title of a video."""

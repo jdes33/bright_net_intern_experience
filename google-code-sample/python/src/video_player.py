@@ -21,9 +21,8 @@ class VideoPlayer:
         """Returns all videos."""
         print("Here's a list of all available videos:")
         videos = sorted(self._video_library.get_all_videos(), key=lambda v: v.title)
-        for v in videos:
-            formatted_tags = " ".join(v.tags)
-            print(f"\t{v.title} ({v.video_id}) [{formatted_tags}]")
+        for video in videos:
+            print(f"\t{video}")  ## utilises str dunder method of video object
         
     def play_video(self, video_id):
         """Plays the respective video.
@@ -91,10 +90,9 @@ class VideoPlayer:
     def show_playing(self):
         """Displays video currently playing."""
         if self._current_video_id:
-            v = self._video_library.get_video(self._current_video_id)
-            formatted_tags = " ".join(v.tags)
-            paused_status = "- PAUSED" if self._paused else ""
-            print(f"Currently playing: {v.title} ({v.video_id}) [{formatted_tags}] {paused_status}")
+            video = self._video_library.get_video(self._current_video_id)
+            paused_status = " - PAUSED" if self._paused else ""
+            print(f"Currently playing: {video}{paused_status}")
         else:
             print("No video is currently playing")
 
@@ -139,17 +137,34 @@ class VideoPlayer:
 
     def show_all_playlists(self):
         """Display all playlists."""
+        if self._playlists:
+            print("Showing all playlists:")
+            sorted_playlists = sorted(list(self._playlists.keys()))
+            for name in sorted_playlists:
+                print(f"\t{self._playlists[name].title}")
+                
+        else:
+            print("No playlists exist yet")
 
-        print("show_all_playlists needs implementation")
-
+        
     def show_playlist(self, playlist_name):
         """Display all videos in a playlist with a given name.
 
         Args:
             playlist_name: The playlist name.
         """
-        print("show_playlist needs implementation")
-
+        if playlist_name.lower() in list(self._playlists.keys()):
+            print(f"Showing playlist: {playlist_name}")
+            playlist = self._playlists[playlist_name.lower()]
+            if not playlist.empty():
+                for video_id in playlist.videos:
+                    video = self._video_library.get_video(video_id)
+                    print(f"\t{video}")
+            else:
+                print("\tNo videos here yet")
+        else:
+            print(f"Cannot show playlist {playlist_name}: Playlist does not exist")
+            
     def remove_from_playlist(self, playlist_name, video_id):
         """Removes a video to a playlist with a given name.
 
