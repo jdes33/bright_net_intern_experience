@@ -153,7 +153,7 @@ class VideoPlayer:
         Args:
             playlist_name: The playlist name.
         """
-        if playlist_name.lower() in list(self._playlists.keys()):
+        if playlist_name.lower() in self._playlists:
             print(f"Showing playlist: {playlist_name}")
             playlist = self._playlists[playlist_name.lower()]
             if not playlist.empty():
@@ -172,7 +172,7 @@ class VideoPlayer:
             playlist_name: The playlist name.
             video_id: The video_id to be removed.
         """
-        if playlist_name.lower() in list(self._playlists.keys()):
+        if playlist_name.lower() in self._playlists:
             playlist = self._playlists[playlist_name.lower()]
             if video_id in playlist._videos:
                 video_title = self._video_library.get_video(video_id).title
@@ -192,7 +192,7 @@ class VideoPlayer:
         Args:
             playlist_name: The playlist name.
         """
-        if playlist_name.lower() in list(self._playlists.keys()):
+        if playlist_name.lower() in self._playlists:
             self._playlists[playlist_name.lower()].clear()
             print(f"Successfully removed all videos from {playlist_name}")
             
@@ -204,8 +204,12 @@ class VideoPlayer:
         Args:
             playlist_name: The playlist name.
         """
-        print("deletes_playlist needs implementation")
-
+        if playlist_name.lower() in self._playlists:
+            self._playlists.pop(playlist_name.lower())
+            print(f"Deleted playlist: {playlist_name}")
+        else:
+            print(f"Cannot delete playlist {playlist_name}: Playlist does not exist")
+            
     def search_videos(self, search_term):
         """Display all the videos whose titles contain the search_term.
 
