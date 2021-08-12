@@ -176,7 +176,7 @@ class VideoPlayer:
             playlist = self._playlists[playlist_name.lower()]
             if video_id in playlist._videos:
                 video_title = self._video_library.get_video(video_id).title
-                playlist._videos.remove(video_id)
+                playlist.remove(video_id)
                 print(f"Removed video from {playlist_name}: {video_title}")
             else:
                 if self._video_library.get_video(video_id):
@@ -192,8 +192,12 @@ class VideoPlayer:
         Args:
             playlist_name: The playlist name.
         """
-        print("clears_playlist needs implementation")
-
+        if playlist_name.lower() in list(self._playlists.keys()):
+            self._playlists[playlist_name.lower()].clear()
+            print(f"Successfully removed all videos from {playlist_name}")
+            
+        else:
+            print(f"Cannot clear playlist {playlist_name}: Playlist does not exist")
     def delete_playlist(self, playlist_name):
         """Deletes a playlist with a given name.
 

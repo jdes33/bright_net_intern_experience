@@ -17,10 +17,16 @@ class Playlist:
     def empty(self):
         return len(self._videos) == 0
 
+    def remove(self, video_id):
+        self._videos.remove(video_id)
+
+    def clear(self):
+        self._videos.clear()
+
     @property
     def videos(self):
         """Returns the ids of videos in a playlist."""
-        return self._videos
+        return self._videos.copy()
     
     
     @property
