@@ -1,1 +1,1 @@
-# Bright Network Technology Internhsip Experience
+# Bright Network Technology Internship Experience
